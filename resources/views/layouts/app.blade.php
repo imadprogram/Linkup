@@ -26,6 +26,7 @@
 
         {{-- 2. MAIN FEED SECTION (Grow to fill space) --}}
         <main class="w-full max-w-2xl">
+            @include('components.navbar')
             @yield('content')
         </main>
 

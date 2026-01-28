@@ -9,7 +9,9 @@ Route::get('/', function () {
 
 Route::get('/home', function () {
     return view('layouts.app');
-});
+})->name('home');
+
+Route::get('/search' , [App\Http\Controllers\ProfileController::class , 'search'])->name('search');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
