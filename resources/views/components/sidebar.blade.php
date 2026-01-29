@@ -4,7 +4,7 @@
     <div class="flex flex-col items-center text-center">
         <div class="relative">
             {{-- Profile Image --}}
-            <img src="https://i.pravatar.cc/150?img=11" alt="Profile"
+            <img src="{{ asset('storage/' . $user->pfp) }}" alt="Profile"
                 class="w-20 h-20 rounded-full object-cover border-4 border-white shadow-sm">
             {{-- Decorative dot/icon from design --}}
             <div class="absolute -top-1 -left-2 text-2xl text-purple-400">✦</div>
