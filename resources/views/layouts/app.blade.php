@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,13 +8,19 @@
     {{-- Load Tailwind & Icons --}}
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://kit.fontawesome.com/559afa4763.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     {{-- Google Font (Poppins/Inter lookalike) --}}
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
 
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
     </style>
 </head>
+
 <body class="bg-[#F0F2F5] text-slate-800">
 
     {{-- Main Container --}}
@@ -32,9 +39,10 @@
 
         {{-- 3. RIGHT WIDGETS (Placeholder for now) --}}
         <aside class="w-80 hidden xl:block shrink-0 sticky top-6">
-            </aside>
+        </aside>
 
     </div>
 
 </body>
+
 </html>
