@@ -44,7 +44,7 @@
         </a>
 
         {{-- Inactive Item (Friends) --}}
-        <a href="#"
+        <a href="{{ route('friends') }}"
             class="flex items-center justify-between px-6 py-3 text-slate-600 hover:bg-white hover:text-black rounded-2xl transition-colors">
             <div class="flex items-center gap-4">
                 <i class="fa-solid fa-user-group text-xl"></i>
