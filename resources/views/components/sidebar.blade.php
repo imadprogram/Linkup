@@ -11,7 +11,7 @@
         </div>
         @auth
             <h2 class="mt-3 font-bold text-lg text-slate-900">{{ auth()->user()->name }}</h2>
-            <p class="text-sm text-slate-400 font-medium">@ {{ auth()->user()->name }}{{ auth()->user()->id }}</p>
+            <p class="text-sm text-slate-400 font-medium">@ {{ auth()->user()->username }}</p>
         @endauth
     </div>
 

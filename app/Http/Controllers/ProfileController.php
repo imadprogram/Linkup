@@ -68,7 +68,7 @@ class ProfileController extends Controller
     {
         $query = $request->input('search');
 
-        $users = User::whereRaw('LOWER(name) LIKE ?' , ['%' . strtolower($query) . '%'])->get();
+        $users = User::where('username' , 'ILIKE' , "%{$query}%")->get();
 
         return view('search_results' , ['users' => $users]);
     }

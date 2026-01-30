@@ -14,12 +14,12 @@
 
                     <div>
                         <h1>{{ $user->name }}</h1>
-                        <span class="font-semibold text-sm text-gray-700"> {{ $user->email }}</span>
+                        <span class="font-semibold text-sm text-gray-700"> {{ $user->username }}</span>
                     </div>
                 </div>
                 <form action="{{ route('friend.add', $user->id) }}" method="POST">
                     @csrf
-                    @if (auth()->id() != $user->id)   
+                    @if (auth()->id() != $user->id)
                         <button type="submit" class="px-4 py-2 rounded-xl hover:bg-black hover:text-white transition-colors"><i
                         class="fa-solid fa-user-plus"></i> Add Friend</button>
                     @endif
