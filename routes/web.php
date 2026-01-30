@@ -14,7 +14,9 @@ Route::get('/home', function () {
 
 Route::get('/search' , [App\Http\Controllers\ProfileController::class , 'search'])->name('search');
 
-Route::get('/friends' , [App\Http\Controllers\FriendshipsController::class , 'showRequests'])->name('friends');
+Route::get('/friends' , [App\Http\Controllers\FriendshipsController::class , 'index'])->name('friends');
+
+Route::post('/handle-friend/{id}', [App\Http\Controllers\FriendshipsController::class , 'handleFriendRequest'])->name('friend.handle');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
