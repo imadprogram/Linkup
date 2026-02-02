@@ -8,9 +8,7 @@ Route::get('/', function () {
     return view('landing');
 });
 
-Route::get('/home', function () {
-    return view('layouts.app');
-})->name('home');
+Route::get('/home', [App\Http\Controllers\PostController::class , 'getPosts'])->name('home');
 
 Route::get('/search' , [App\Http\Controllers\ProfileController::class , 'search'])->name('search');
 
