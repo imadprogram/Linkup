@@ -13,17 +13,26 @@ class FriendshipsController extends Controller
 
         $check1 = \App\Models\Friendship::where('sender_id', $user->id)
             ->where('receiver_id', $receiverId)
-            ->exists();
-
+            ->first();
 
         $check2 = \App\Models\Friendship::where('sender_id', $receiverId)
             ->where('receiver_id', $user->id)
-            ->exists();
+            ->first();
 
-        if ($check1 || $check2) {
+        $friendship = $check1 ? $check1 : $check2;
+
+        if ($friendship) {
+            if ($friendship->status == 'rejected') {
+                $friendship->update([
+                    'sender_id' => $user->id,
+                    'receiver_id' => $receiverId,
+                    'status' => 'pending'
+                ]);
+                return back()->with('success', 'Friend request re-sent!');
+            }
+            
             return back()->with('error', 'Request already exists or you are already friends.');
         }
-
 
         \App\Models\Friendship::create([
             'sender_id' => $user->id,

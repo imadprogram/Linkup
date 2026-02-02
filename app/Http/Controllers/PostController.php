@@ -20,7 +20,24 @@ class PostController extends Controller
     }
 
     public function getPosts(){
-        $posts = Post::latest()->get();
+        $userId = auth()->id();
+
+        $friends1 = \App\Models\Friendship::where('sender_id', $userId)
+                    ->where('status', 'accepted')
+                    ->pluck('receiver_id')
+                    ->toArray();
+
+        $friends2 = \App\Models\Friendship::where('receiver_id', $userId)
+                    ->where('status', 'accepted')
+                    ->pluck('sender_id')
+                    ->toArray();
+
+        // merge them + add my id (so i can see my own posts)
+        $allowedUserIds = array_merge($friends1, $friends2, [$userId]);
+
+        $posts = Post::whereIn('user_id', $allowedUserIds)
+                 ->latest()
+                 ->get();
 
         return view('feed' , ['posts' => $posts]);
     }
