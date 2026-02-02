@@ -18,6 +18,12 @@ Route::get('/friends' , [App\Http\Controllers\FriendshipsController::class , 'in
 
 Route::post('/handle-friend/{id}', [App\Http\Controllers\FriendshipsController::class , 'handleFriendRequest'])->name('friend.handle');
 
+Route::get('/new-post' , function(){
+    return view('newPost');
+})->name('new.post');
+
+Route::post('/new-post' , [App\Http\Controllers\PostController::class , 'store'])->name('post');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

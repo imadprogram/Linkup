@@ -17,9 +17,9 @@
             <button class="w-10 h-10 flex items-center justify-center rounded-xl text-slate-500 hover:bg-slate-100 hover:text-indigo-600 transition-colors">
                 <i class="fa-regular fa-bell text-lg"></i>
             </button>
-            <button class="w-10 h-10 flex items-center justify-center rounded-xl bg-black text-white hover:bg-slate-800 shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5">
+            <a href="{{ route('new.post') }}" class="w-10 h-10 flex items-center justify-center rounded-xl bg-black text-white hover:bg-slate-800 shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5">
                 <i class="fa-solid fa-plus"></i>
-            </button>
+            </a>
         </div>
 
     </div>
