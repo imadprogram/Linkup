@@ -37,6 +37,8 @@ Route::get('/posts/{id}/edit', function ($id) {
 
 Route::delete('/postDelete/{id}' , [App\Http\Controllers\PostController::class , 'destroy'])->name('destroy');
 
+Route::put('/likePost/{id}' , [App\Http\Controllers\LikeController::class , 'like'])->name('like.post');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

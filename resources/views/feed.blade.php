@@ -77,12 +77,20 @@
 
             {{-- Action Buttons --}}
             <div class="flex items-center gap-6 pt-4 border-t border-slate-100">
-                <button class="flex items-center gap-2 text-slate-500 hover:text-pink-500 transition group">
-                    <div class="w-8 h-8 rounded-full bg-slate-50 group-hover:bg-pink-50 flex items-center justify-center transition-colors">
-                        <i class="fa-regular fa-heart"></i>
-                    </div>
-                    <span class="text-sm font-medium">Like</span>
-                </button>
+                <form action="{{ route('like.post', $post->id) }}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <button type="submit" class="flex items-center gap-2 text-slate-500 hover:text-pink-500 transition group">
+                        <div class="w-8 h-8 rounded-full bg-slate-50 group-hover:bg-pink-50 flex items-center justify-center transition-colors">
+                            @if($post->likes->where('user_id', auth()->id())->count() > 0)
+                                <i class="fa-solid fa-heart text-pink-500"></i>
+                            @else
+                                <i class="fa-regular fa-heart"></i>
+                            @endif
+                        </div>
+                        <span class="text-sm font-medium">{{ $post->likes->count() }}</span>
+                    </button>
+                </form>
 
                 <button class="flex items-center gap-2 text-slate-500 hover:text-blue-500 transition group">
                     <div class="w-8 h-8 rounded-full bg-slate-50 group-hover:bg-blue-50 flex items-center justify-center transition-colors">
