@@ -41,4 +41,19 @@ class PostController extends Controller
 
         return view('feed' , ['posts' => $posts]);
     }
+
+    public function update(Request $request , $id){
+        $description = $request->input('description');
+
+        $post = Post::find($id);
+        if(auth()->id()  !==  $post->user_id){
+            return back()->with('error' , 'unauthorized');
+        }
+
+        $post->update([
+            'description' => $description
+        ]);
+
+        return back()->with('success' , 'the post has updated');
+    }
 }

@@ -22,6 +22,19 @@ Route::get('/new-post' , function(){
 
 Route::post('/new-post' , [App\Http\Controllers\PostController::class , 'store'])->name('post');
 
+Route::put('/posts/{id}' , [App\Http\Controllers\PostController::class , 'update'])->name('updatePost');
+use App\Models\Post;
+
+Route::get('/posts/{id}/edit', function ($id) {
+    $post = Post::findOrFail($id);
+
+    if (auth()->id() !== $post->user_id) {
+       return redirect()->route('home')->with('error', 'Unauthorized');
+    }
+
+    return view('editPost', ['post' => $post]);
+})->name('posts.edit');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

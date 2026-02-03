@@ -37,10 +37,30 @@
                     </div>
                 </div>
 
-                {{-- Options --}}
-                <button class="text-slate-400 hover:text-slate-600 transition">
-                    <i class="fa-solid fa-ellipsis"></i>
-                </button>
+                {{-- Options Dropdown (Only for Author) --}}
+                @if(auth()->id() === $post->user_id)
+                <div class="dropdown dropdown-end">
+                    <div tabindex="0" role="button" class="text-slate-400 hover:text-slate-600 transition p-2">
+                        <i class="fa-solid fa-ellipsis"></i>
+                    </div>
+                    <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow-lg bg-white rounded-box w-40 border border-slate-100">
+                        <li>
+                            <a href="{{ route('posts.edit', $post->id) }}" class="text-slate-600 hover:text-blue-600 hover:bg-blue-50">
+                                <i class="fa-regular fa-pen-to-square"></i> Edit
+                            </a>
+                        </li>
+                        <li>
+                            <form action="#" method="POST" class="p-0">
+                                @csrf 
+                                @method('DELETE')
+                                <button type="submit" class="text-red-500 hover:bg-red-50 w-full text-left flex gap-2 items-center px-4 py-2">
+                                    <i class="fa-regular fa-trash-can"></i> Delete
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+                @endif
             </div>
 
             {{-- Post Body --}}
