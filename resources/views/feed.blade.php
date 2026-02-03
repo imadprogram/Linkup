@@ -50,7 +50,7 @@
                             </a>
                         </li>
                         <li>
-                            <form action="#" method="POST" class="p-0">
+                            <form action="{{ route('destroy', $post->id) }}" method="POST" class="p-0">
                                 @csrf 
                                 @method('DELETE')
                                 <button type="submit" class="text-red-500 hover:bg-red-50 w-full text-left flex gap-2 items-center px-4 py-2">

@@ -35,6 +35,8 @@ Route::get('/posts/{id}/edit', function ($id) {
     return view('editPost', ['post' => $post]);
 })->name('posts.edit');
 
+Route::delete('/postDelete/{id}' , [App\Http\Controllers\PostController::class , 'destroy'])->name('destroy');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

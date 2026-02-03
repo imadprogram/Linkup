@@ -56,4 +56,16 @@ class PostController extends Controller
 
         return back()->with('success' , 'the post has updated');
     }
+
+    public function destroy($id){
+        $post = Post::find($id);
+
+        if(auth()->id()  !==  $post->user_id){
+            return back()->with('error' , 'unauthorized');
+        }
+
+        $post->delete();
+
+        return back()->with('success' , 'the post has been deleted');
+    }
 }
