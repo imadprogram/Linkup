@@ -92,12 +92,13 @@
                     </button>
                 </form>
 
-                <button class="flex items-center gap-2 text-slate-500 hover:text-blue-500 transition group">
+                
+                <a href="{{ route('comments.show', $post->id) }}" class="flex items-center gap-2 text-slate-500 hover:text-blue-500 transition group">
                     <div class="w-8 h-8 rounded-full bg-slate-50 group-hover:bg-blue-50 flex items-center justify-center transition-colors">
                         <i class="fa-regular fa-comment"></i>
                     </div>
                     <span class="text-sm font-medium">Comment</span>
-                </button>
+                </a>
                 
                 <button class="flex items-center gap-2 text-slate-500 hover:text-green-500 transition group ml-auto">
                      <i class="fa-solid fa-share nodes"></i>

@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FriendshipsController;
+use App\Models\Post;
 
 Route::get('/', function () {
     return view('landing');
@@ -23,7 +24,6 @@ Route::get('/new-post' , function(){
 Route::post('/new-post' , [App\Http\Controllers\PostController::class , 'store'])->name('post');
 
 Route::put('/posts/{id}' , [App\Http\Controllers\PostController::class , 'update'])->name('updatePost');
-use App\Models\Post;
 
 Route::get('/posts/{id}/edit', function ($id) {
     $post = Post::findOrFail($id);
@@ -38,6 +38,10 @@ Route::get('/posts/{id}/edit', function ($id) {
 Route::delete('/postDelete/{id}' , [App\Http\Controllers\PostController::class , 'destroy'])->name('destroy');
 
 Route::put('/likePost/{id}' , [App\Http\Controllers\LikeController::class , 'like'])->name('like.post');
+
+Route::get('/posts/{id}/comments' , [App\Http\Controllers\CommentController::class , 'show'])->name('comments.show');
+
+Route::post('/posts/{id}/comments' , [App\Http\Controllers\CommentController::class , 'comment'])->name('comments.store');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
