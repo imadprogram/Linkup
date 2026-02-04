@@ -23,7 +23,9 @@
                 <div class="flex items-center gap-3">
                     {{-- Avatar --}}
                     @if($post->user->pfp)
-                        <img src="{{ asset('storage/' . $post->user->pfp) }}" alt="{{ $post->user->name }}" class="w-10 h-10 rounded-full object-cover">
+                        <a href="{{ route('profile' , $post->user->id) }}">
+                            <img src="{{ asset('storage/' . $post->user->pfp) }}" alt="{{ $post->user->name }}" class="w-10 h-10 rounded-full object-cover">
+                        </a>
                     @else
                         <div class="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center text-slate-500">
                             <i class="fa-solid fa-user"></i>
@@ -31,8 +33,8 @@
                     @endif
                     
                     {{-- User Meta --}}
-                    <div>
-                        <h3 class="font-bold text-slate-900 leading-tight">{{ $post->user->name }}</h3>
+                    <div class="flex flex-col">
+                        <a href="{{ route('profile' , $post->user->id) }}" class="font-bold text-slate-900 leading-tight">{{ $post->user->name }}</a>
                         <span class="text-xs text-slate-500 font-medium">{{ $post->created_at->diffForHumans() }}</span>
                     </div>
                 </div>

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use App\Models\User;
+use App\Models\Post;
 
 class ProfileController extends Controller
 {
@@ -71,5 +72,13 @@ class ProfileController extends Controller
         $users = User::where('username' , 'ILIKE' , "%{$query}%")->get();
 
         return view('search_results' , ['users' => $users]);
+    }
+
+    public function showProfile($id){
+        $user = User::find($id);
+
+        $posts = Post::where('user_id' , $id)->get();
+
+        return view('profile' , compact('user' , 'posts'));
     }
 }
