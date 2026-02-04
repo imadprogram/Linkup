@@ -22,12 +22,12 @@
                 @forelse ($requests as $person)
                     <div class="bg-white p-4 rounded-2xl shadow-sm flex items-center justify-between">
                         <div class="flex items-center gap-4">
-                            <a href="{{ route('profile' , $post->sender->id) }}">
+                            <a href="{{ route('profile' , $person->sender->username) }}">
                                 <img src="{{ $person->sender->pfp ? asset('storage/' . $person->sender->pfp) : 'https://i.pravatar.cc/150?img=33' }}"
                                     alt="" class="w-12 h-12 rounded-full object-cover ring-2 ring-blue-100">
                             </a>
                             <div>
-                                <a href="{{ route('profile' , $post->sender->id) }}" class="font-bold text-slate-800">{{ $person->sender->name }}</a>
+                                <a href="{{ route('profile' , $person->sender->username) }}" class="font-bold text-slate-800">{{ $person->sender->name }}</a>
                                 <p class="text-xs text-slate-400">Sent {{ $person->created_at->diffForHumans() }}</p>
                             </div>
                         </div>
@@ -58,12 +58,12 @@
                     @endphp
                     <div class="bg-white p-4 rounded-2xl shadow-sm flex items-center justify-between">
                         <div class="flex items-center gap-4">
-                            <a href="{{ route('profile' , $friendUser->id) }}">
+                            <a href="{{ route('profile' , $friendUser->username) }}">
                                 <img src="{{ $friendUser->pfp ? asset('storage/' . $friendUser->pfp) : 'https://i.pravatar.cc/150?img=33' }}"
                                     alt="" class="w-12 h-12 rounded-full object-cover ring-2 ring-blue-100">
                             </a>
                             <div>
-                                <a href="{{ route('profile' , $friendUser->id) }}" class="font-bold text-slate-800">{{ $friendUser->name }}</a>
+                                <a href="{{ route('profile' , $friendUser->username) }}" class="font-bold text-slate-800">{{ $friendUser->name }}</a>
                                 <p class="text-xs text-slate-400">Friend</p>
                             </div>
                         </div>

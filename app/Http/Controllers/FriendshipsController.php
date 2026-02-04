@@ -59,27 +59,28 @@ class FriendshipsController extends Controller
         return view('friends', compact('requests', 'friends'));
     }
 
-    public function handleFriendRequest(Request $request, $senderId)
+    public function handleFriendRequest(Request $request, $userId)
     {
-
         $action = $request->input('action');
 
-        $friendship = \App\Models\Friendship::where('sender_id', $senderId)
+        $check1 = \App\Models\Friendship::where('sender_id', $userId)
             ->where('receiver_id', auth()->id())
-            ->where('status', 'pending')
             ->first();
 
-        if ($action == 'accept') {
-        }
+        $check2 = \App\Models\Friendship::where('sender_id', auth()->id())
+            ->where('receiver_id', $userId)
+            ->first();
+
+        $friendship = $check1 ? $check1 : $check2;
 
         if ($friendship) {
-            if ($action == 'accept') {
+            if ($action == 'accept' && $friendship->status == 'pending') {
                 $friendship->update(['status' => 'accepted']);
                 return back()->with('success', 'Friend request accepted!');
 
             } elseif ($action == 'reject') {
                 $friendship->update(['status' => 'rejected']);
-                return back()->with('success', 'Friend request rejected!');
+                return back()->with('success', 'Unfriended successfully!');
             }
         }
 

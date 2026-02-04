@@ -75,16 +75,16 @@ class ProfileController extends Controller
         return view('search_results' , ['users' => $users]);
     }
 
-    public function showProfile($id){
-        $user = User::find($id);
-        $posts = Post::where('user_id', $id)->get();
+    public function showProfile($username){
+        $user = User::where('username' , $username)->first();
+        $posts = Post::where('user_id', $user->id)->get();
 
-        $check1 = Friendship::where('sender_id', $id)
+        $check1 = Friendship::where('sender_id', $user->id)
             ->where('receiver_id', auth()->id())
             ->first();
 
         $check2 = Friendship::where('sender_id', auth()->id())
-            ->where('receiver_id', $id)
+            ->where('receiver_id', $user->id)
             ->first();
 
         $friendship = $check1 ? $check1 : $check2;

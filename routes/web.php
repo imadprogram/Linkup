@@ -43,7 +43,7 @@ Route::get('/posts/{id}/comments' , [App\Http\Controllers\CommentController::cla
 
 Route::post('/posts/{id}/comments' , [App\Http\Controllers\CommentController::class , 'comment'])->name('comments.store');
 
-Route::get('/profile/{id}' , [App\Http\Controllers\ProfileController::class , 'showProfile'])->name('profile');
+Route::get('/profile/{username}' , [App\Http\Controllers\ProfileController::class , 'showProfile'])->name('profile');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
