@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use App\Models\User;
 use App\Models\Post;
+use App\Models\Friendship;
 
 class ProfileController extends Controller
 {
@@ -76,9 +77,19 @@ class ProfileController extends Controller
 
     public function showProfile($id){
         $user = User::find($id);
+        $posts = Post::where('user_id', $id)->get();
 
-        $posts = Post::where('user_id' , $id)->get();
+        $check1 = Friendship::where('sender_id', $id)
+            ->where('receiver_id', auth()->id())
+            ->first();
 
-        return view('profile' , compact('user' , 'posts'));
+        $check2 = Friendship::where('sender_id', auth()->id())
+            ->where('receiver_id', $id)
+            ->first();
+
+        $friendship = $check1 ? $check1 : $check2;
+
+        return view('profile', compact('user', 'posts', 'friendship'));
     }
 }
+

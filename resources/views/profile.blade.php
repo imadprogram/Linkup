@@ -41,12 +41,38 @@
 
                 {{-- Action Button --}}
                 @if(auth()->id() !== $user->id)
-                    <form action="{{ route('friend.add', $user->id) }}" method="POST">
-                        @csrf
-                        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-xl transition-all shadow-sm hover:shadow-md">
-                            <i class="fa-solid fa-user-plus mr-2"></i> Add Friend
+                    @if($friendship && $friendship->status == 'accepted')
+                        {{-- Already Friends - Show Unfriend --}}
+                        <form action="{{ route('friend.handle', $user->id) }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="action" value="reject">
+                            <button type="submit" class="bg-red-100 hover:bg-red-200 text-red-600 font-semibold py-2 px-6 rounded-xl transition-all">
+                                <i class="fa-solid fa-user-minus mr-2"></i> Unfriend
+                            </button>
+                        </form>
+                    @elseif($friendship && $friendship->status == 'pending' && $friendship->sender_id == auth()->id())
+                        {{-- I sent the request - Show Request Sent --}}
+                        <button disabled class="bg-slate-100 text-slate-500 font-semibold py-2 px-6 rounded-xl cursor-not-allowed">
+                            <i class="fa-solid fa-clock mr-2"></i> Request Sent
                         </button>
-                    </form>
+                    @elseif($friendship && $friendship->status == 'pending' && $friendship->receiver_id == auth()->id())
+                        {{-- They sent request - Show Accept --}}
+                        <form action="{{ route('friend.handle', $user->id) }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="action" value="accept">
+                            <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-6 rounded-xl transition-all shadow-sm hover:shadow-md">
+                                <i class="fa-solid fa-check mr-2"></i> Accept Request
+                            </button>
+                        </form>
+                    @else
+                        {{-- No relationship - Show Add Friend --}}
+                        <form action="{{ route('friend.add', $user->id) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-xl transition-all shadow-sm hover:shadow-md">
+                                <i class="fa-solid fa-user-plus mr-2"></i> Add Friend
+                            </button>
+                        </form>
+                    @endif
                 @else
                     <a href="{{ route('profile.edit') }}" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold py-2 px-6 rounded-xl transition-all">
                         <i class="fa-solid fa-pen mr-2"></i> Edit Profile
