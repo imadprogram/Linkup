@@ -12,7 +12,6 @@ class Post extends Model
 
     protected $fillable = [
         'description',
-        'picture',
         'user_id'
     ];
 
@@ -25,5 +24,9 @@ class Post extends Model
 
     public function likes(){
         return $this->hasMany(Like::class);
+    }
+
+    public function images(){
+        return $this->morphMany(Image::class, 'imageable');
     }
 }

@@ -12,11 +12,19 @@ class PostController extends Controller
     public function store(Request $request){
         $description = $request->input('description');
 
-        auth()->user()->posts()->create([
+        $post = auth()->user()->posts()->create([
             'description' => $description
         ]);
-        
-        return back()->with('success' , 'Post has created');
+        if($request->hasFile('images')){
+            foreach($request->file('images') as $image){
+                $path = $image->store('posts' , 'public');
+
+                $post->images()->create([
+                    'path' => $path
+                ]);
+            }
+        }
+        return redirect()->route('home')->with('success' , 'Post Created!');
     }
 
     public function getPosts(){

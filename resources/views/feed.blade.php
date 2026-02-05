@@ -69,10 +69,12 @@
             <div class="mb-5">
                 <p class="text-slate-700 leading-relaxed whitespace-pre-wrap">{{ $post->description }}</p>
                 
-                {{-- Optional: Post Image (if exists) --}}
-                @if($post->picture)
-                <div class="mt-4 rounded-xl overflow-hidden">
-                    <img src="{{ asset('storage/' . $post->picture) }}" class="w-full object-cover">
+                {{-- Post Images --}}
+                @if($post->images->count() > 0)
+                <div class="mt-4 grid gap-2 {{ $post->images->count() > 1 ? 'grid-cols-2' : 'grid-cols-1' }}">
+                    @foreach($post->images as $image)
+                        <img src="{{ asset('storage/' . $image->path) }}" class="w-full h-64 object-cover rounded-xl">
+                    @endforeach
                 </div>
                 @endif
             </div>
