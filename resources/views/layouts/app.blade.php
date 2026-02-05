@@ -52,6 +52,61 @@
     </div>
 
     @yield('scripts')
+
+    {{-- Live Search AJAX --}}
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('searchInput');
+        const resultsDiv = document.getElementById('searchResults');
+        
+        if (!searchInput || !resultsDiv) return;
+        
+        searchInput.addEventListener('input', async function() {
+            const query = this.value.trim();
+            
+            // Hide if less than 2 characters
+            if (query.length < 2) {
+                resultsDiv.classList.add('hidden');
+                resultsDiv.innerHTML = '';
+                return;
+            }
+            
+            try {
+                // Make AJAX request
+                const response = await fetch('/api/search?q=' + encodeURIComponent(query));
+                const users = await response.json();
+                
+                // Build results HTML
+                if (users.length > 0) {
+                    resultsDiv.innerHTML = users.map(user => `
+                        <a href="/profile/${user.username}" class="flex items-center gap-3 p-3 hover:bg-slate-50 transition-colors first:rounded-t-xl last:rounded-b-xl">
+                            <div class="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center text-slate-500">
+                                ${user.pfp ? `<img src="/storage/${user.pfp}" class="w-10 h-10 rounded-full object-cover">` : '<i class="fa-solid fa-user"></i>'}
+                            </div>
+                            <div>
+                                <div class="font-semibold text-slate-800">${user.name}</div>
+                                <div class="text-sm text-slate-500">@${user.username}</div>
+                            </div>
+                        </a>
+                    `).join('');
+                    resultsDiv.classList.remove('hidden');
+                } else {
+                    resultsDiv.innerHTML = '<div class="p-4 text-slate-500 text-center">No users found</div>';
+                    resultsDiv.classList.remove('hidden');
+                }
+            } catch (error) {
+                console.error('Search error:', error);
+            }
+        });
+        
+        // Hide results when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!searchInput.contains(e.target) && !resultsDiv.contains(e.target)) {
+                resultsDiv.classList.add('hidden');
+            }
+        });
+    });
+    </script>
 </body>
 
 </html>

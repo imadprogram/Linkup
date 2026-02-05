@@ -45,6 +45,9 @@ Route::post('/posts/{id}/comments' , [App\Http\Controllers\CommentController::cl
 
 Route::get('/profile/{username}' , [App\Http\Controllers\ProfileController::class , 'showProfile'])->name('profile');
 
+// ajax
+Route::get('/api/search' , [App\Http\Controllers\ProfileController::class , 'liveSearch']);
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

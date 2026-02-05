@@ -91,5 +91,16 @@ class ProfileController extends Controller
 
         return view('profile', compact('user', 'posts', 'friendship'));
     }
+
+    public function liveSearch(Request $request){
+        $query = $request->input('q');
+
+        $users = User::where('username' , 'ILIKE' , "%{$query}%")
+        ->orWhere('name' , 'ILIKE' , "%{$query}%")
+        ->limit(5)
+        ->get();
+
+        return response()->json($users);
+    }
 }
 
